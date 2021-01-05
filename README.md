@@ -44,4 +44,4 @@ yarn build:android:debug
 - [ ] strings to be added in locale files
 - [ ] theme setup
 - [ ] Wrapper for UI Components
-- [ ] config environment
+- [ ] config environments
