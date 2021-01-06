@@ -22,8 +22,7 @@ export interface AnyAction extends Action {
  * @template P The type of the action's payload.
  * @template T the type used for the action type.
  */
-export interface PayloadAction<P = any, T extends string = string>
-  extends Action<T> {
+export interface PayloadAction<P = any, T extends string = string> extends Action<T> {
   payload?: P;
 }
 
@@ -32,9 +31,7 @@ export interface PayloadAction<P = any, T extends string = string>
  *
  * @template A The action to extract the type definition from
  */
-export type ExtractAction<A> = A extends
-  | PayloadActionCreator<infer P, infer T>
-  | PayloadAction<infer P, infer T>
+export type ExtractAction<A> = A extends PayloadActionCreator<infer P, infer T> | PayloadAction<infer P, infer T>
   ? PayloadAction<P, T>
   : A extends Action
   ? A
@@ -58,9 +55,7 @@ export interface PayloadActionCreator<P = any, T extends string = string> {
  *
  * @param type The action type to use for created actions.
  */
-export function createAction<P = any, T extends string = string>(
-  type: T,
-): PayloadActionCreator<P, T> {
+export function createAction<P = any, T extends string = string>(type: T): PayloadActionCreator<P, T> {
   function actionCreator(): Action<T>;
   function actionCreator(payload: P): PayloadAction<P, T>;
   function actionCreator(payload?: P): Action<T> | PayloadAction<P, T> {
@@ -82,9 +77,7 @@ export function createAction<P = any, T extends string = string>(
  * @param action The action creator whose action type to get.
  * @returns The action type used by the action creator.
  */
-export function getType<T extends string>(
-  actionCreator: PayloadActionCreator<any, T>,
-): T {
+export function getType<T extends string>(actionCreator: PayloadActionCreator<any, T>): T {
   return `${actionCreator}` as T;
 }
 
@@ -101,11 +94,7 @@ export function createAsyncActions<PayloadType = any>(name: string) {
     failure: AsyncActionType;
   };
 
-  const actions: AsyncActionType[] & Partial<AsyncActionProperties> = [
-    loading,
-    success,
-    failure,
-  ];
+  const actions: AsyncActionType[] & Partial<AsyncActionProperties> = [loading, success, failure];
 
   actions.loading = loading;
   actions.success = success;

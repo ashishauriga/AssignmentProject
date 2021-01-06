@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 /**
  * Composes React elements and components into a single React component.
  * Props passed to the composed component get passed down to each of the
@@ -16,26 +16,22 @@ import React from 'react';
  * @returns {React.ComponentType<any>}
  */
 export function composeComponents(
-  ...components: Array<
-    | React.ReactElement<any>
-    | React.ComponentType<any>
-    | React.ExoticComponent<any>
-  >
+  ...components: Array<React.ReactElement<any> | React.ComponentType<any> | React.ExoticComponent<any>>
 ): React.ComponentType<any> {
   return (props: any) =>
     components.reduceRight(
       (composed: any, Component) =>
         // Function component
-        typeof Component === 'function' ||
+        typeof Component === "function" ||
         // React internal components like Fragment, Suspense, etc. are symbols
-        typeof Component === 'symbol' ||
+        typeof Component === "symbol" ||
         // Class component
         Component instanceof React.Component
           ? React.createElement(
               Component as React.ComponentType<any>,
               // React.Fragment doesn't accept any props other than children
               // Other React internal components should be instantiated as elements
-              typeof Component === 'symbol' ? undefined : props,
+              typeof Component === "symbol" ? undefined : props,
               composed,
             )
           : // React element
@@ -47,20 +43,17 @@ export function composeComponents(
     ) as any;
 }
 
-composeComponents.displayName = 'ComposedComponents';
+composeComponents.displayName = "ComposedComponents";
 
 interface IComposedProps {
   components: Array<React.ReactElement<any> | React.ComponentType<any>>;
   [key: string]: any;
 }
 
-export const Composed: React.SFC<IComposedProps> = ({
-  components,
-  ...props
-}) => {
+export const Composed: React.SFC<IComposedProps> = ({ components, ...props }) => {
   const Component = composeComponents(...components);
 
   return <Component {...props} />;
 };
 
-Composed.displayName = 'Composed';
+Composed.displayName = "Composed";

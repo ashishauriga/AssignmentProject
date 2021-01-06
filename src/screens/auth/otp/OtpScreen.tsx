@@ -40,7 +40,7 @@ export const OtpScreen: React.FC<OtpScreenProps> = ({
       setError("");
       setDisable(false);
       setLoader(true);
-      const { data } = await login({ otp: otpStr, phoneNo: "+91" + phoneNo });
+      await login({ otp: otpStr, phoneNo: "+91" + phoneNo });
       setLoader(false);
       navigation.replace("main");
     },
@@ -70,8 +70,8 @@ export const OtpScreen: React.FC<OtpScreenProps> = ({
             <Text style={styles.otpMsg}>Please verify your number with 4 digit OTP code sent to {phoneNo}</Text>
             <OTPInputView
               error={error}
-              onOtpSubmitted={(otp: string) => {
-                verifyOtp(otp);
+              onOtpSubmitted={(otpStr: string) => {
+                verifyOtp(otpStr);
               }}
             />
             <View style={styles.row}>

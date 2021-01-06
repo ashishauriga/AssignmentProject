@@ -1,6 +1,6 @@
-import { CaseReducer, createReducer, PayloadAction } from '..';
+import { CaseReducer, createReducer, PayloadAction } from "..";
 
-describe('createReducer', () => {
+describe("createReducer", () => {
   interface Todo {
     text: string;
     completed: boolean;
@@ -31,26 +31,26 @@ describe('createReducer', () => {
     TOGGLE_TODO: toggleTodo,
   });
 
-  it('should return the current state when given an unknown action', () => {
-    const todos = [{ text: 'test', completed: true }];
+  it("should return the current state when given an unknown action", () => {
+    const todos = [{ text: "test", completed: true }];
 
     expect(
       todosReducer(todos, {
-        type: 'UNKNOWN',
-        payload: 'STUFF',
+        type: "UNKNOWN",
+        payload: "STUFF",
       }),
     ).toEqual(todos);
   });
 
-  it('should handle ADD_TODO', () => {
+  it("should handle ADD_TODO", () => {
     expect(
       todosReducer([], {
-        type: 'ADD_TODO',
-        payload: { newTodo: { text: 'Run the tests' } },
+        type: "ADD_TODO",
+        payload: { newTodo: { text: "Run the tests" } },
       }),
     ).toEqual([
       {
-        text: 'Run the tests',
+        text: "Run the tests",
         completed: false,
       },
     ]);
@@ -59,22 +59,22 @@ describe('createReducer', () => {
       todosReducer(
         [
           {
-            text: 'Run the tests',
+            text: "Run the tests",
             completed: false,
           },
         ],
         {
-          type: 'ADD_TODO',
-          payload: { newTodo: { text: 'Use Context' } },
+          type: "ADD_TODO",
+          payload: { newTodo: { text: "Use Context" } },
         },
       ),
     ).toEqual([
       {
-        text: 'Run the tests',
+        text: "Run the tests",
         completed: false,
       },
       {
-        text: 'Use Context',
+        text: "Use Context",
         completed: false,
       },
     ]);
@@ -83,60 +83,60 @@ describe('createReducer', () => {
       todosReducer(
         [
           {
-            text: 'Run the tests',
+            text: "Run the tests",
             completed: false,
           },
           {
-            text: 'Use Context',
+            text: "Use Context",
             completed: false,
           },
         ],
         {
-          type: 'ADD_TODO',
-          payload: { newTodo: { text: 'Fix the tests' } },
+          type: "ADD_TODO",
+          payload: { newTodo: { text: "Fix the tests" } },
         },
       ),
     ).toEqual([
       {
-        text: 'Run the tests',
+        text: "Run the tests",
         completed: false,
       },
       {
-        text: 'Use Context',
+        text: "Use Context",
         completed: false,
       },
       {
-        text: 'Fix the tests',
+        text: "Fix the tests",
         completed: false,
       },
     ]);
   });
 
-  it('should handle TOGGLE_TODO', () => {
+  it("should handle TOGGLE_TODO", () => {
     expect(
       todosReducer(
         [
           {
-            text: 'Run the tests',
+            text: "Run the tests",
             completed: false,
           },
           {
-            text: 'Use Context',
+            text: "Use Context",
             completed: false,
           },
         ],
         {
-          type: 'TOGGLE_TODO',
+          type: "TOGGLE_TODO",
           payload: { index: 0 },
         },
       ),
     ).toEqual([
       {
-        text: 'Run the tests',
+        text: "Run the tests",
         completed: true,
       },
       {
-        text: 'Use Context',
+        text: "Use Context",
         completed: false,
       },
     ]);

@@ -2,7 +2,6 @@ import { Platform } from "react-native";
 
 import axios, { AxiosRequestConfig } from "axios";
 
-import events from "../events";
 import { AUTH_KEYS } from "../logout";
 import { hydrate } from "../storage";
 

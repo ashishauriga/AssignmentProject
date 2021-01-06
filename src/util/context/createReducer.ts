@@ -1,15 +1,12 @@
-import { Reducer } from 'react';
+import { Reducer } from "react";
 
-import { Action, AnyAction, PayloadAction } from './createAction';
+import { Action, AnyAction, PayloadAction } from "./createAction";
 
 /**
  * An *case reducer* is a reducer function for a speficic action type. Case
  * reducers can be composed to full reducers using `createReducer()`.
  */
-export type CaseReducer<S = any, A extends Action = AnyAction> = (
-  state: S,
-  action: A,
-) => S;
+export type CaseReducer<S = any, A extends Action = AnyAction> = (state: S, action: A) => S;
 
 /**
  * A mapping from action types to case reducers for `createReducer()`.

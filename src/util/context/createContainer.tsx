@@ -1,5 +1,6 @@
-import React from 'react';
-import { DeepPartial } from 'typings/utils';
+import React from "react";
+
+import { DeepPartial } from "@src/typings/api/utils";
 
 type ProviderProps = {
   children?: React.ReactNode;
@@ -24,7 +25,7 @@ export function createContainer<P, V>(
 ) {
   const Context = React.createContext({} as V);
 
-  const Provider: React.FC<ProviderProps & P> = props => {
+  const Provider: React.FC<ProviderProps & P> = (props) => {
     const value = useValue(props);
 
     const memoizedValue = createMemoInputs
@@ -35,9 +36,7 @@ export function createContainer<P, V>(
 
     const { children } = props;
 
-    return (
-      <Context.Provider value={memoizedValue}>{children}</Context.Provider>
-    );
+    return <Context.Provider value={memoizedValue}>{children}</Context.Provider>;
   };
 
   const useContext = () => React.useContext(Context);
@@ -51,8 +50,8 @@ export function createContainer<P, V>(
 
   // TestProvider needs to be reworked entirely.
   // Avoid using there where possible
-  if (process.env.NODE_ENV === 'test') {
-    const TestProvider: React.FC<TestProviderProps<P> & P> = props => {
+  if (process.env.NODE_ENV === "test") {
+    const TestProvider: React.FC<TestProviderProps<P> & P> = (props) => {
       const { children, overrides = {} } = props;
 
       const value = useValue({
@@ -66,8 +65,7 @@ export function createContainer<P, V>(
           React.useMemo(() => value, createMemoInputs(value))
         : value;
 
-      const testValue = Object.entries(overrides).reduce((tv, [k, v]) => {
-        // eslint-disable-next-line no-param-reassign
+      const testValue = Object.entries(overrides).reduce((tv: any, [k, v]) => {
         tv[k] = { ...tv[k], ...(v as any) };
 
         return tv;

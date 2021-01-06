@@ -1,8 +1,8 @@
 import { Account } from "@typings/api/Account";
 
 import { api } from "../api";
-import { persist } from "../storage";
 import { AUTH_KEYS } from "../logout";
+import { persist } from "../storage";
 
 export type OtpRequest = {
   phoneNo: string;
