@@ -29,9 +29,9 @@ const AppNavigator: React.FC<AppNavigatorProps> = ({ initProcessing }) => {
 
   const initialize = useCallback(async () => {
     setTimeout(async () => {
-      setProcessing(false);
       const loggedIn: boolean = (await hydrate(AUTH_KEYS.IS_LOGGED)) || false;
       setLoggedIn(loggedIn);
+      setProcessing(false);
     }, 1000);
   }, []);
 

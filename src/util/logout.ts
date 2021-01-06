@@ -9,7 +9,10 @@ export const AUTH_KEYS = {
 };
 
 export const handleLogout = async () => {
-  await asyncForEach<string>(Object.values(AUTH_KEYS), async (value) => {
-    await unpersist(value);
+  await asyncForEach<string>({
+    array: Object.values(AUTH_KEYS),
+    callback: async (value) => {
+      await unpersist(value);
+    },
   });
 };
