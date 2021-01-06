@@ -4,12 +4,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen } from "@screens/auth/login";
 import { OtpScreen } from "@screens/auth/otp";
+import MainNavigator from "@screens/main/MainNavigator";
 import { SplashScreen } from "@screens/splash";
+
+import { AUTH_KEYS } from "./util/logout";
+import { hydrate } from "./util/storage";
 
 export type AppStackParamList = {
   splash: undefined;
   login: undefined;
   otp: { phoneNo: string };
+  main: undefined;
 };
 
 const Stack = createStackNavigator<AppStackParamList>();
@@ -20,9 +25,13 @@ type AppNavigatorProps = {
 
 const AppNavigator: React.FC<AppNavigatorProps> = ({ initProcessing }) => {
   const [processing, setProcessing] = useState(initProcessing);
-  const initialize = useCallback(() => {
-    setTimeout(() => {
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const initialize = useCallback(async () => {
+    setTimeout(async () => {
       setProcessing(false);
+      const loggedIn: boolean = (await hydrate(AUTH_KEYS.IS_LOGGED)) || false;
+      setLoggedIn(loggedIn);
     }, 1000);
   }, []);
 
@@ -41,10 +50,16 @@ const AppNavigator: React.FC<AppNavigatorProps> = ({ initProcessing }) => {
           safeAreaInsets: { top: 0, right: 0, bottom: 0, left: 0 },
         }}
         headerMode="none">
-        <>
-          <Stack.Screen name="login" component={LoginScreen} />
-          <Stack.Screen name="otp" component={OtpScreen} />
-        </>
+        {isLoggedIn ? (
+          <>
+            <Stack.Screen name="main" component={MainNavigator} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="login" component={LoginScreen} />
+            <Stack.Screen name="otp" component={OtpScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

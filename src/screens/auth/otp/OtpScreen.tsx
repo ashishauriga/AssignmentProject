@@ -6,10 +6,12 @@ import View from "@atom/View/View";
 import { CloseButton } from "@molecules/CloseButton";
 import { CTAButton } from "@molecules/CTAButton";
 import { OTPInputView } from "@molecules/OTPInputView";
+import { OverlayLoader } from "@molecules/OverlayLoader";
 import { Screen } from "@molecules/Screen";
 import { CompositeNavigationProp, RouteProp } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AppStackParamList } from "@src/AppNavigator";
+import { login } from "@src/util/request/login";
 
 type OTPScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<AppStackParamList, "otp">,
@@ -29,22 +31,29 @@ export const OtpScreen: React.FC<OtpScreenProps> = ({
 }) => {
   const [error, setError] = useState("");
   const [disable, setDisable] = useState(true);
+  const [loader, setLoader] = useState(false);
+  const [otp, setOtp] = useState("");
 
-  phoneNo = phoneNo.replace(/\d(?=\d{2})/g, "*");
-
-  const verifyOtp = useCallback((otp) => {
-    setError("");
-    setDisable(false);
-    if (otp !== "1234") {
-      setError("Invalid OTP, Please try again.");
-    }
-  }, []);
+  const verifyOtp = useCallback(
+    async (otpStr: string) => {
+      setOtp(otpStr);
+      setError("");
+      setDisable(false);
+      setLoader(true);
+      const { data } = await login({ otp: otpStr, phoneNo: "+91" + phoneNo });
+      setLoader(false);
+      navigation.replace("main");
+    },
+    [navigation, phoneNo],
+  );
 
   const closeAction = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
 
-  const verifyAction = useCallback(() => {}, []);
+  const verifyAction = useCallback(() => {
+    verifyOtp(otp);
+  }, [otp, verifyOtp]);
 
   return (
     <Screen
@@ -52,6 +61,8 @@ export const OtpScreen: React.FC<OtpScreenProps> = ({
         title: "Verify phone number",
         rightElement: <CloseButton onPress={closeAction} />,
       }}>
+      <OverlayLoader loading={loader} />
+
       <ScrollView keyboardShouldPersistTaps="always">
         <View style={styles.outerContainer}>
           <View style={styles.container}>
