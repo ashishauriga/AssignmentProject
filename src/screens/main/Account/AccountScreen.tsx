@@ -1,14 +1,20 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import { Image } from "@atom/Image";
+import Text from "@atom/Text/Text";
 import View from "@atom/View/View";
+import { Screen } from "@molecules/Screen";
 
-export const SplashScreen: React.FC = () => {
+export const AccountScreen: React.FC = () => {
   return (
-    <View style={styles.outerContainer}>
-      <Image style={styles.logo} resizeMode="contain" source={require("@images/logo.png")} />
-    </View>
+    <Screen
+      headerProps={{
+        title: "Account",
+      }}>
+      <View style={styles.outerContainer}>
+        <Text>Account Screen</Text>
+      </View>
+    </Screen>
   );
 };
 

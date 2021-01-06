@@ -26,6 +26,7 @@ module.exports = {
           "@atom": ["./src/atom"],
           "@screens": ["./src/screens"],
           "@molecules": ["./src/molecules"],
+          "@typings": ["./src/typings"],
         },
       },
     ],

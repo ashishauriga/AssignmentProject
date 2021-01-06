@@ -27,7 +27,8 @@
       "@components/*": ["./src/atom/*"],
       "@molecules/*": ["./src/molecules/*"],
       "@atom/*": ["./src/atom/*"],
-      "@screens/*": ["./src/screens/*"]
+      "@screens/*": ["./src/screens/*"],
+      "@typings/*": ["./src/typings/*"]
     }
   },
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js", "index.js"]

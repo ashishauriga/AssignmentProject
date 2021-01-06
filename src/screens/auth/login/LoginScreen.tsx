@@ -1,16 +1,18 @@
 import React, { useCallback, useState } from "react";
 import { StyleSheet } from "react-native";
 
-import Image from "@atom/Image/Image";
+import { Image } from "@atom/Image";
 import Text from "@atom/Text/Text";
 import View from "@atom/View/View";
 import PhoneIcon from "@images/svg/PhoneIcon";
 import { CircleButton } from "@molecules/CircleButton";
+import { OverlayLoader } from "@molecules/OverlayLoader";
 import { Screen } from "@molecules/Screen";
 import { TextInput } from "@molecules/TextInput";
 import { CompositeNavigationProp, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AppStackParamList } from "@src/AppNavigator";
+import { generateOtp } from "@src/util/request/login";
 import { ScrollView } from "react-native-gesture-handler";
 
 type LoginScreenNavigationProp = CompositeNavigationProp<
@@ -26,6 +28,7 @@ type LoginScreenProps = {
 export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [error, setError] = useState("");
   const [mobile, setMobile] = useState("");
+  const [loader, setLoader] = useState(false);
   const onMobileNumberChange = useCallback((val) => {
     setMobile(val);
     setError("");
@@ -36,14 +39,27 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     if (mobile.length !== 10) {
       setError("Please enter valid mobile number");
     } else {
-      navigation.navigate("otp", {
-        phoneNo: mobile,
-      });
+      setLoader(true);
+      generateOtp({
+        phoneNo: "+91" + mobile,
+      })
+        .then(() => {
+          setLoader(false);
+          navigation.navigate("otp", {
+            phoneNo: mobile,
+          });
+          console.log("then");
+        })
+        .catch(() => {
+          setLoader(false);
+          console.log("eror");
+        });
     }
   }, [mobile, navigation]);
 
   return (
     <Screen>
+      <OverlayLoader loading={loader} />
       <ScrollView keyboardShouldPersistTaps="always">
         <View style={styles.outerContainer}>
           <View style={styles.container}>

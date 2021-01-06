@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { theme, ThemeContext } from "./util/theme";
+import { theme, ThemeContext } from "./styles/theme";
 import AppNavigator from "./AppNavigator";
 
 const App: React.FC = () => {
