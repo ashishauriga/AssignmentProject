@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 
-import Text from "@atom/Text/Text";
+import { Text } from "@atom/Text";
 import View from "@atom/View/View";
 import { CloseButton } from "@molecules/CloseButton";
 import { CTAButton } from "@molecules/CTAButton";

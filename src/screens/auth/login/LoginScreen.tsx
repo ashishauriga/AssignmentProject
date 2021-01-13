@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { StyleSheet } from "react-native";
 
 import { Image } from "@atom/Image";
-import Text from "@atom/Text/Text";
+import { Text } from "@atom/Text";
 import View from "@atom/View/View";
 import PhoneIcon from "@images/svg/PhoneIcon";
 import { CircleButton } from "@molecules/CircleButton";

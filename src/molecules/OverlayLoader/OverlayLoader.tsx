@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Spinner } from "@atom/spinner";
+import { Spinner } from "@atom/Spinner";
 import SpinnerOverlay from "react-native-loading-spinner-overlay";
 
 type OverlayLoaderProps = {

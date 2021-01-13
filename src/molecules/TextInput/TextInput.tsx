@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, TextInput as BaseTextInput, TextInputProps, View } from "react-native";
 
-import Text from "@atom/Text/Text";
+import { Text } from "@atom/Text";
 
 export type LibProps = TextInputProps & {
   leftItem?: any;

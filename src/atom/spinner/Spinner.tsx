@@ -7,10 +7,9 @@ export type SpinnerProps = ActivityIndicator & {
   style?: any;
 };
 export const Spinner: FC<SpinnerProps> = ({ size, ...props }) => {
-  const internalColor = "primary.100";
-  return <ActivityIndicator animating size={size} color={internalColor} {...props} />;
+  return <ActivityIndicator animating size={size} {...props} />;
 };
 Spinner.defaultProps = {
-  color: "primary.100",
+  color: "#ff2200",
   size: "small",
 };

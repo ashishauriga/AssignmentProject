@@ -3,8 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { Spinner, SpinnerProps } from "@atom/Spinner";
 
-type FullPageLoader = {} & SpinnerProps;
-export const FullPageLoader: FC<FullPageLoader> = (props) => {
+export const FullPageLoader: FC<SpinnerProps> = (props) => {
   return (
     <View style={styles.spinner}>
       <Spinner {...props} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform, StyleSheet, ViewProps } from "react-native";
 
-import Text from "@atom/Text/Text";
+import { Text } from "@atom/Text";
 import View from "@atom/View/View";
 
 export type HeaderProps = ViewProps & {

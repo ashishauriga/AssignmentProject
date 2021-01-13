@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import Text from "@atom/Text/Text";
+import { Text } from "@atom/Text";
 import View from "@atom/View/View";
 import { Screen } from "@molecules/Screen";
 

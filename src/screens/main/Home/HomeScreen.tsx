@@ -1,35 +1,40 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useCallback, useEffect } from "react";
 
-import Text from "@atom/Text/Text";
-import View from "@atom/View/View";
+import { FullPageLoader } from "@molecules/FullPageLoader";
 import { Screen } from "@molecules/Screen";
+import { Employee } from "@typings/Employees";
+
+import { EmployeesList } from "../../../organisms/EmployeesList";
+
+import { useHome } from "./context/HomeContext";
 
 export const HomeScreen: React.FC = () => {
+  const {
+    state: { employeesList, employeesLoading },
+    actions: { getEmployeesList },
+  } = useHome();
+
+  useEffect(() => {
+    getEmployeesList();
+  }, [getEmployeesList]);
+
+  useEffect(() => {
+    //do some task
+  }, []);
+
+  const onItemPress = useCallback((item: Employee) => {
+    console.info(item.employee_name);
+  }, []);
+
+  if (employeesLoading) {
+    return <FullPageLoader />;
+  }
   return (
     <Screen
       headerProps={{
         title: "Home",
       }}>
-      <View style={styles.outerContainer}>
-        <Text>Home Screen</Text>
-      </View>
+      <EmployeesList data={employeesList} onItemPress={onItemPress} />
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  outerContainer: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    alignContent: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: 180,
-    height: 100,
-    marginTop: 80,
-    marginBottom: 50,
-  },
-});
