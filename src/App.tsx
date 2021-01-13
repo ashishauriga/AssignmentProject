@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import codePush from "react-native-code-push";
+
 import { HomeProvider } from "./screens/main/Home/context/HomeContext";
 import { theme, ThemeContext } from "./styles/theme";
 import { composeComponents } from "./util/component";
@@ -20,5 +22,9 @@ const App: React.FC = () => {
     </Providers>
   );
 };
-
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_APP_RESUME,
+};
+export default codePush(codePushOptions)(App);
 export default App;
