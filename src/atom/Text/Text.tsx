@@ -9,6 +9,6 @@ export type TextProps = LibTextProps & {
   accent?: TextAccentProp;
 };
 
-export const Text: React.FC<TextProps> = ({ ...rest }) => {
-  return <LibText {...rest} />;
+export const Text: React.FC<TextProps> = ({ style, ...rest }) => {
+  return <LibText {...rest} style={[style]} />;
 };

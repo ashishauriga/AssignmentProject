@@ -11,11 +11,6 @@ export const Providers = composeComponents(<ThemeContext.Provider value={theme} 
 
 const App: React.FC = () => {
   const [processing] = useState(true);
-
-  // const middleware = compose(applyMiddleware(logger, axiosMiddleware(client, middlewareConfig), thunk));
-
-  // const store = createStore(reducer, middleware);
-
   return (
     <Providers>
       <AppNavigator initProcessing={processing} />
@@ -24,7 +19,6 @@ const App: React.FC = () => {
 };
 const codePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_NEXT_RESUME,
 };
 export default codePush(codePushOptions)(App);
-export default App;
